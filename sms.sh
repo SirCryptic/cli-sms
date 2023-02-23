@@ -40,7 +40,7 @@ function add_number {
   read name
   phone_book[$number]=$name
   echo "Added $name ($number) to the phone book."
-  echo "$number $name" >> "$phone_book_file"
+  echo "$number,$name" >> "$phone_book_file"
 }
 
 # Prompt the user to select a country
