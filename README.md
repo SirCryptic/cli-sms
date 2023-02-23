@@ -1,5 +1,15 @@
 # CLI-SMS using ClickSend
 
+<p align="center">
+  <a href="https://www.clicksend.com">
+    <img src="https://user-images.githubusercontent.com/48811414/220822585-7234b35d-d20f-46e6-9a34-26c3db3afa80.png" alt="Null Security Team" width="500" 
+    onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.8';" 
+    onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+  </a>
+
+
+- click the above image to go to the website to retrieve your username and API Key then input into the scripts and away you go
+
 CLI-SMS using ClickSend is a command-line interface (CLI) tool that allows you to send SMS messages and make text-to-speech phone calls using ClickSend's API. This tool is designed to be intuitive and user-friendly, even for those who may not have a lot of experience using command line interfaces.
 
 ## Features
