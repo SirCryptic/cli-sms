@@ -40,7 +40,7 @@ function add_number {
   read name
   phone_book[$number]=$name
   echo "Added $name ($number) to the phone book."
-  echo "$number,$name" >> "$phone_book_file"
+  echo "$number $name" >> "$phone_book_file"
 }
 
 # Prompt the user to select a country
@@ -67,6 +67,7 @@ do
       select number in "${!phone_book[@]}"
       do
         if [[ -n $number ]]; then
+          recipient_number=$number
           recipient_name=${phone_book[$number]}
           break
         fi
@@ -81,6 +82,7 @@ do
       select number in "${!phone_book[@]}"
       do
         if [[ -n $number ]]; then
+          recipient_number=$(echo $number | cut -d ',' -f1)
           recipient_name=${phone_book[$number]}
           break
         fi
@@ -99,30 +101,30 @@ if [[ $schedule == "y" ]]; then
   echo "Enter the schedule date and time in the format \"YYYY-MM-DD HH:MM:SS\" (e.g. 2023-02-24 10:00:00):"
   read schedule_time
   schedule_time=$(date -d "$schedule_time" '+%s')
-recipient_name="{
+recipient="{
     \"messages\": [
         {
             \"source\": \"bash\",
             \"body\": \"$message\",
-            \"to\": \"$number\",
-            \"schedule\": $schedule_time
+            \"to\": \"${recipient_number}\"
         }
     ]
 }"
 else
-recipient_name="{
+recipient="{
     \"messages\": [
         {
             \"source\": \"bash\",
             \"body\": \"$message\",
-            \"to\": \"${number//,}\"
+            \"to\": \"${recipient_number}\"
         }
     ]
 }"
 fi
 
 # Send the API request
-response=$(curl --silent --show-error --request POST --url $url --header "${headers[0]}" --header "${headers[1]}" --data-binary "$recipient_name")
+response=$(curl --silent --show-error --request POST --url $url --header "${headers[0]}" --header "${headers[1]}" --data-binary "$recipient")
 
-# Print the API response
+# Print the selected recipient's name and the API response
+echo "Message sent to $recipient_name"
 echo "$response" | jq
