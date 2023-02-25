@@ -40,7 +40,7 @@ function add_number {
   read name
   phone_book[$number]=$name
   echo "Added $name ($number) to the phone book."
-  echo "$number,$name" >> "$phone_book_file"
+  echo "$number $name" >> "$phone_book_file"
 }
 
 # Prompt the user to select a country
@@ -110,6 +110,6 @@ fi
 
 response=$(curl --silent --show-error --request POST --url $url --header "${headers[0]}" --header "${headers[1]}" --data-raw "$data")
 
-# Print the response
-echo "Message sent to $recipient_name ($number):"
-echo $response
+# Print the selected recipient's name and the API response
+echo "Message sent to $recipient_name"
+echo "$response" | jq
